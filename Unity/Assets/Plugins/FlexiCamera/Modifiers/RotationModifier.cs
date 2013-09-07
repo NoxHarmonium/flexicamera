@@ -16,7 +16,8 @@ namespace FlexiCamera.Modifiers
 
 		public TransformClone Modify(TransformClone input)
 		{
-			input.Rotation *= _delta;
+			input.Rotation = _delta * input.Rotation;
+
 			return input;
 		}
 

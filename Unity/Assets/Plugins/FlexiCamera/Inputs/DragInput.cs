@@ -59,6 +59,10 @@ namespace FlexiCamera.Inputs
 				return new Vector3(this.Position.x/Screen.width, 0f, this.Position.y/Screen.height);
 			}
 		}
+		public float Factor {
+			get ;
+			protected set;
+		}
 		#endregion
 
 

@@ -10,7 +10,7 @@ namespace FlexiCamera
 	public class CameraProcessor : MonoBehaviour
 	{
 		protected Camera _targetCamera;
-		protected List<IController> _controllers;
+		protected List<List<IController>> _controllers;
 
 		public Camera TargetCamera
 		{
@@ -26,7 +26,7 @@ namespace FlexiCamera
 
 		public CameraProcessor()
 		{
-			_controllers = new List<IController>();
+			_controllers = new List<List<IController>>();
 
 			//TODO: Selectable cameras?
 
@@ -39,8 +39,14 @@ namespace FlexiCamera
 		protected void Awake()
 		{
 			_targetCamera = Camera.main;
-			_controllers.Add(new PanController(this));
-			_controllers.Add(new OrbitController(this));
+
+
+			_controllers.Add(new List<IController> () { 
+				new RotateOrbitController(this),
+			 	new PanController(this) ,
+				new OrbitController(this) 
+			});
+
 		}
 
 		protected void Update()
@@ -61,11 +67,20 @@ namespace FlexiCamera
 		protected LinkedList<IModifier> BuildModifierStack()
 		{
 			LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
+			bool cancel = false;
 
-			foreach (IController controller in _controllers) {
-				List<IModifier> cModifiers = controller.GetModifiers();
-				foreach (IModifier modifier in cModifiers) {
-					modifiers.AddLast(modifier);
+			foreach (List<IController> controllerLevel in _controllers) {
+
+				if (cancel) {
+					break;
+				}
+
+				foreach (IController controller in controllerLevel) {
+					List<IModifier> cModifiers = controller.GetModifiers();
+					foreach (IModifier modifier in cModifiers) {
+						modifiers.AddLast(modifier);
+						cancel = true;
+					}
 				}
 			}
 			return modifiers;

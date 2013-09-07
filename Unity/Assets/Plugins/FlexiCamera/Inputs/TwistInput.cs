@@ -3,58 +3,45 @@ using UnityEngine;
 
 namespace FlexiCamera.Inputs
 {
-	public class TwoFingerDragInput : IContinuousInput
+	public class TwistInput : IContinuousInput
 	{
 		protected InteractionManager _interactionManager;
-		public DragStates DragState {
-			get;
-			protected set;
-		}
 
-		public enum DragStates
-		{
-			Started,
-			InProgress,
-			Ended
-		}
-
-		public TwoFingerDragInput()
+		public TwistInput()
 		{
 			_interactionManager = InteractionManager.Instance;
-			_interactionManager.AddTwoFingerDragZone(
+			_interactionManager.AddRotationZone(
 				new Rect(0, 0, Screen.width, Screen.height),
 				InteractionManager.InteractionLayer.IN_WORLD_A,
-				StartDrag,
-				UpdateDrag,
-				EndDrag);
+				StartTwist,
+				UpdateTwist,
+				EndTwist);
 		}
 
-		bool StartDrag(Vector2 pos, Vector2 velocity)
+		bool StartTwist(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position = pos;
-			Delta = velocity;
-			DragState = DragStates.Started;
-			Debug.Log("S");
+			Delta = Vector3.zero;
+			Factor = factor;
 			return false;
 		}
 
-		bool UpdateDrag(Vector2 pos, Vector2 velocity)
+		bool UpdateTwist(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position = pos;
-			Delta = velocity;
-			DragState = DragStates.InProgress;
-			Debug.Log("U");
+			Delta = Vector3.zero;
+			Factor = factor;
 			return false;
 		}
 
-		bool EndDrag(Vector2 pos, Vector2 velocity)
+		bool EndTwist(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position = pos;
-			Delta = velocity;
-			DragState = DragStates.Ended;
-			Debug.Log("E");
+			Delta = Vector3.zero;
+			Factor = 0.0f;
 			return false;
 		}
+
 
 		#region IContinuousInput implementation
 		public UnityEngine.Vector3 Delta {

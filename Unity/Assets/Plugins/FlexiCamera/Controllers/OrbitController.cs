@@ -16,8 +16,10 @@ namespace FlexiCamera.Controllers
 		protected float _rotateYFactor = 1.0f;
 		protected float _rotateXFactor = 1.0f;
 		protected float _startThreshold = 0.01f;
-		protected float pitchDegrees = -10;
+		protected float pitchDegrees = -50;
 		protected float aroundDegrees = 0;
+		protected float minAngle = -89.0f;
+		protected float maxAngle = -7.5f;
 
 		public OrbitController(CameraProcessor parent)
 		{
@@ -31,7 +33,9 @@ namespace FlexiCamera.Controllers
 
 		public List<IModifier> GetModifiers()
 		{
-			_raycast.Invalidate();
+			if (_input.DragState == TwoFingerDragInput.DragStates.Started) {
+				_raycast.Invalidate();
+			}
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
 			if (_input.Delta.magnitude > _startThreshold && _raycast.DidHit) {
@@ -40,19 +44,21 @@ namespace FlexiCamera.Controllers
 
 				aroundDegrees += _input.Delta.x;
 				pitchDegrees += _input.Delta.y;
-				float radius = Vector3.Distance(t.Position, _raycast.HitPoint);
+				pitchDegrees = Mathf.Clamp(pitchDegrees, minAngle, maxAngle);
+
+				float radius = Vector3.Distance(t.Position, _raycast.HitPoint);				
 
 				Vector3 currentPos = t.Position;
 				Vector3 newPos = Quaternion.Euler(pitchDegrees, aroundDegrees, 0) * (radius * Vector3.forward) + _raycast.HitPoint;
 				Vector3 deltaPos = newPos - currentPos;
 
 				Quaternion currentRot = t.Rotation;
-				Quaternion newRot = Quaternion.LookRotation(_raycast.HitPoint - currentPos, Vector3.up);
+				Quaternion newRot = Quaternion.LookRotation(_raycast.HitPoint - newPos);
 				Quaternion deltaRot = newRot * Quaternion.Inverse(currentRot);
 
 				return new List<IModifier>() {
 					new PositionModifier(deltaPos),
-					//new RotationModifier(deltaRot)
+					new RotationModifier(deltaRot)
 				};
 			}
 			return new List<IModifier>();

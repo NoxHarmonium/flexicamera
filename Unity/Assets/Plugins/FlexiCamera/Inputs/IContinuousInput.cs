@@ -20,6 +20,9 @@ namespace FlexiCamera.Inputs
 			get;
 		}
 
+		float Factor {
+			get;
+		}
 
 	}
 }

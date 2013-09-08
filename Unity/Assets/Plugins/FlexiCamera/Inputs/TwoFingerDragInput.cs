@@ -44,7 +44,6 @@ namespace FlexiCamera.Inputs
 				EndDrag);
 
 			DragState = DragStates.Ended;
-			_gestureHasReset = true;
 		}
 
 		bool StartDrag(Vector2 pos, Vector2 velocity)
@@ -52,6 +51,7 @@ namespace FlexiCamera.Inputs
 			Position1 = pos;
 			Delta1 = velocity;
 			DragState = DragStates.Started;
+			_gestureHasReset = true;
 			return false;
 		}
 

@@ -38,7 +38,7 @@ namespace FlexiCamera.Controllers
 		{
 			if (_input.GestureHasReset) {
 				_raycast.Invalidate();
-
+				Debug.Log("Invalidate");
 			}
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));

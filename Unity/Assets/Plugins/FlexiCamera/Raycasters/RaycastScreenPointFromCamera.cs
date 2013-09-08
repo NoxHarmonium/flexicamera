@@ -10,6 +10,7 @@ namespace FlexiCamera.Raycasters
 		protected RaycastHit _hitInfo;
 		protected bool _didHit;
 		protected LayerMask _layerMask;
+		protected float _maxRayDistance = 100f;
 
 		public RaycastScreenPointFromCamera(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
 		{
@@ -24,7 +25,7 @@ namespace FlexiCamera.Raycasters
 		public void Invalidate()
 		{
 			Ray ray = _targetCamera.ScreenPointToRay((Vector3)_screenPosition);
-			_didHit = Physics.Raycast(ray, out _hitInfo);
+			_didHit = Physics.Raycast(ray, out _hitInfo, _maxRayDistance, _layerMask);
 		}
 		public bool DidHit {
 			get {

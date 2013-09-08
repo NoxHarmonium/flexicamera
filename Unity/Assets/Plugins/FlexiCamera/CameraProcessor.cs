@@ -10,7 +10,7 @@ namespace FlexiCamera
 	public class CameraProcessor : MonoBehaviour
 	{
 		protected Camera _targetCamera;
-		protected List<List<IController>> _controllers;
+		protected List<IController> _controllers;
 
 		public Camera TargetCamera
 		{
@@ -26,7 +26,7 @@ namespace FlexiCamera
 
 		public CameraProcessor()
 		{
-			_controllers = new List<List<IController>>();
+			_controllers = new List<IController>();
 
 			//TODO: Selectable cameras?
 
@@ -39,17 +39,19 @@ namespace FlexiCamera
 		protected void Awake()
 		{
 			_targetCamera = Camera.main;
+			this.LayerMask = 1 << LayerMask.NameToLayer("Environment");
 
-
-			_controllers.Add(new List<IController> () { 
+			_controllers = new List<IController> () { 
 				new RotateOrbitController(this),
 				new PinchZoomController(this),
 			 	new PanController(this) ,
 				new OrbitController(this) ,
+				new BelowGroundOrbitController(this) ,
 				new ZoomBoundsController(this),
+				new PanBoundsController(this)
 				//new MomentumController(this)
 
-			});
+			};
 
 		}
 
@@ -71,22 +73,22 @@ namespace FlexiCamera
 		protected LinkedList<IModifier> BuildModifierStack()
 		{
 			LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
-			bool cancel = false;
+			bool showDebugDivider = false;
 
-			foreach (List<IController> controllerLevel in _controllers) {
-
-				if (cancel) {
-					break;
+			foreach (IController controller in _controllers) {
+				List<IModifier> cModifiers = controller.GetModifiers();
+				if (cModifiers.Count > 0) {
+					Debug.Log("Controller: " + controller.GetType().Name + " Modifiers: " + cModifiers.Count);
+					showDebugDivider = true;
 				}
-
-				foreach (IController controller in controllerLevel) {
-					List<IModifier> cModifiers = controller.GetModifiers();
-					foreach (IModifier modifier in cModifiers) {
-						modifiers.AddLast(modifier);
-						cancel = true;
-					}
+				foreach (IModifier modifier in cModifiers) {
+					modifiers.AddLast(modifier);
 				}
 			}
+
+			if (showDebugDivider)
+				Debug.Log("------------");
+
 			return modifiers;
 		}
 

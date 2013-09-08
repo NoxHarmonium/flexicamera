@@ -9,6 +9,7 @@ namespace FlexiCamera.Raycasters
 		protected RaycastHit _hitInfo;
 		protected LayerMask _layerMask;
 		protected bool _didHit;
+		protected float _maxRayDistance = 100f;
 
 		public RaycastFromCameraCenter(Camera targetCamera, LayerMask layerMask)
 		{
@@ -22,7 +23,8 @@ namespace FlexiCamera.Raycasters
 		public void Invalidate()
 		{
 			Ray ray = _targetCamera.ViewportPointToRay(CastPoint);
-			_didHit = Physics.Raycast(ray, out _hitInfo);
+			this.Direction = ray.direction;
+			_didHit = Physics.Raycast(ray, out _hitInfo, _maxRayDistance, _layerMask);
 			Debug.DrawRay(ray.origin, ray.direction * 20.0f, Color.cyan, 0.2f);
 		}
 		public bool DidHit {
@@ -52,6 +54,11 @@ namespace FlexiCamera.Raycasters
 			set {
 
 			}
+		}
+		public Vector3 Direction {
+			get;
+			protected set;
+
 		}
 		#endregion
 	}

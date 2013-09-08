@@ -20,6 +20,7 @@ namespace FlexiCamera.Controllers
 		protected float _deltaClamp = 15f;
 		protected float _dampingFactor = 0.85f;
 
+
 		public PanController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
@@ -34,6 +35,7 @@ namespace FlexiCamera.Controllers
 		{
 			_raycast.Invalidate();
 
+
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
 			if (_input.Delta1.magnitude > _startThreshold && _raycast.DidHit) {
 
@@ -44,7 +46,7 @@ namespace FlexiCamera.Controllers
 				_worldDelta = Vector3.ClampMagnitude(_worldDelta, _deltaClamp);
 
 			}
-			if (_worldDelta.magnitude > _startThreshold) {
+			if (_worldDelta.magnitude > _startThreshold  ) {
 
 				Vector3 mod = _worldDelta;
 				_worldDelta *= _dampingFactor;

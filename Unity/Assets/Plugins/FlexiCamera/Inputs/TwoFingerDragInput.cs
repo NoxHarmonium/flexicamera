@@ -6,6 +6,21 @@ namespace FlexiCamera.Inputs
 	public class TwoFingerDragInput : IContinuousInput
 	{
 		protected InteractionManager _interactionManager;
+		protected bool _gestureHasReset;
+
+		public bool GestureHasReset
+		{
+			get {
+				bool val = _gestureHasReset;
+				_gestureHasReset = false;
+				return val;
+			}
+			protected set {
+				_gestureHasReset = value;
+			}
+
+		}
+
 		public DragStates DragState {
 			get;
 			protected set;
@@ -27,6 +42,9 @@ namespace FlexiCamera.Inputs
 				StartDrag,
 				UpdateDrag,
 				EndDrag);
+
+			DragState = DragStates.Ended;
+			_gestureHasReset = true;
 		}
 
 		bool StartDrag(Vector2 pos, Vector2 velocity)
@@ -34,7 +52,6 @@ namespace FlexiCamera.Inputs
 			Position1 = pos;
 			Delta1 = velocity;
 			DragState = DragStates.Started;
-			Debug.Log("S");
 			return false;
 		}
 
@@ -43,7 +60,6 @@ namespace FlexiCamera.Inputs
 			Position1 = pos;
 			Delta1 = velocity;
 			DragState = DragStates.InProgress;
-			Debug.Log("U");
 			return false;
 		}
 
@@ -52,7 +68,6 @@ namespace FlexiCamera.Inputs
 			Position1 = pos;
 			Delta1 = velocity;
 			DragState = DragStates.Ended;
-			Debug.Log("E");
 			return false;
 		}
 

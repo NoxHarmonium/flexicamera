@@ -15,6 +15,8 @@ namespace FlexiCamera.Controllers
 		protected TwistInput _input;
 		protected float _rotateFactor = 1f;
 		protected float _startThreshold = 0.01f;
+		protected float _dampingFactor = 0.85f;
+		protected float _rotateDelta;
 
 
 		public RotateOrbitController(CameraProcessor parent)
@@ -32,13 +34,16 @@ namespace FlexiCamera.Controllers
 			_raycast.CastPoint = (_input.Position1 + _input.Position2) / 2.0f;
 			_raycast.Invalidate();
 
+
+
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
 			if (Mathf.Abs(_input.Factor) > _startThreshold && _raycast.DidHit) {
+				_rotateDelta = _input.Factor;
+			}
 
+			if (Math.Abs(_rotateDelta) > _startThreshold) {
+				float delta =  _rotateDelta * _rotateFactor;
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
-
-				float delta =  _input.Factor * _rotateFactor;
-
 				//Debug.Log("Delta: " + delta);
 
 				Quaternion deltaRot = Quaternion.AngleAxis(delta, Vector3.up);
@@ -52,11 +57,13 @@ namespace FlexiCamera.Controllers
 
 				Vector3 deltaPos = newPos - currentPos;
 
+				_rotateDelta *= _dampingFactor;
 
 				return new List<IModifier>() {
 					new PositionModifier(deltaPos),
 					new RotationModifier(deltaRot)
 				};
+
 			}
 			return new List<IModifier>();
 		}

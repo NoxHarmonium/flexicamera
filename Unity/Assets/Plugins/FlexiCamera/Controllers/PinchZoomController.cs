@@ -15,6 +15,8 @@ namespace FlexiCamera.Controllers
 		protected PinchInput _input;
 		protected float _zoomFactor = 0.1f;
 		protected float _startThreshold = 0.01f;
+		protected float _deltaClamp = 20f;
+		protected Vector3 _worldDelta;
 
 
 		public PinchZoomController(CameraProcessor parent)
@@ -36,14 +38,19 @@ namespace FlexiCamera.Controllers
 			if (Mathf.Abs(_input.Factor) > _startThreshold && _raycast.DidHit) {
 
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
-				Vector3 deltaPos = (_raycast.HitPoint - t.Position).normalized * _input.Factor * _zoomFactor;
+				_worldDelta = (_raycast.HitPoint - t.Position).normalized * Mathf.Clamp(_input.Factor, -_deltaClamp, _deltaClamp) * _zoomFactor;
+			}
 
+			if (_worldDelta.magnitude > 0.01f) {
 
+				Vector3 mod = _worldDelta;
+				_worldDelta *= 0.85f;
 
 				return new List<IModifier>() {
-					new PositionModifier(deltaPos),
+					new PositionModifier(mod)
 				};
 			}
+
 			return new List<IModifier>();
 		}
 

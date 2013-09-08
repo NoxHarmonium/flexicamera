@@ -16,10 +16,13 @@ namespace FlexiCamera.Controllers
 		protected float _rotateYFactor = 1.0f;
 		protected float _rotateXFactor = 1.0f;
 		protected float _startThreshold = 0.01f;
-		protected float pitchDegrees = -50;
-		protected float aroundDegrees = 0;
-		protected float minAngle = -89.0f;
-		protected float maxAngle = -7.5f;
+		protected float _pitchDegrees = -50;
+		protected float _aroundDegrees = 0;
+		protected float _minAngle = -89.0f;
+		protected float _maxAngle = -7.5f;
+		protected float _dampingFactor = 0.75f;
+		protected float _deltaClamp = 15f;
+		protected Vector2 _inputDelta;
 
 		public OrbitController(CameraProcessor parent)
 		{
@@ -33,23 +36,34 @@ namespace FlexiCamera.Controllers
 
 		public List<IModifier> GetModifiers()
 		{
-			if (_input.DragState == TwoFingerDragInput.DragStates.Started) {
+			if (_input.GestureHasReset) {
 				_raycast.Invalidate();
+
 			}
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
 			if (_input.Delta1.magnitude > _startThreshold && _raycast.DidHit) {
 
+				_inputDelta = Vector2.ClampMagnitude(_input.Delta1, _deltaClamp);
+
+			}
+
+			if (_inputDelta.magnitude > _startThreshold)
+			{
+
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
 
-				aroundDegrees += _input.Delta1.x;
-				pitchDegrees += _input.Delta1.y;
-				pitchDegrees = Mathf.Clamp(pitchDegrees, minAngle, maxAngle);
+				_aroundDegrees += _inputDelta.x;
+				_pitchDegrees += _inputDelta.y;
+
+				_inputDelta *= _dampingFactor;
+
+				_pitchDegrees = Mathf.Clamp(_pitchDegrees, _minAngle, _maxAngle);
 
 				float radius = Vector3.Distance(t.Position, _raycast.HitPoint);				
 
 				Vector3 currentPos = t.Position;
-				Vector3 newPos = Quaternion.Euler(pitchDegrees, aroundDegrees, 0) * (radius * Vector3.forward) + _raycast.HitPoint;
+				Vector3 newPos = Quaternion.Euler(_pitchDegrees, _aroundDegrees, 0) * (radius * Vector3.forward) + _raycast.HitPoint;
 				Vector3 deltaPos = newPos - currentPos;
 
 				Quaternion currentRot = t.Rotation;

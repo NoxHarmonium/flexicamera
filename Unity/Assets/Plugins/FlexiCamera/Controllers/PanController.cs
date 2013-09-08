@@ -16,6 +16,9 @@ namespace FlexiCamera.Controllers
 		protected float _panFactor = 1.0f;
 		protected float _startThreshold = 0.01f;
 		protected bool _invert = true;
+		protected Vector3 _worldDelta;
+		protected float _deltaClamp = 15f;
+		protected float _dampingFactor = 0.85f;
 
 		public PanController(CameraProcessor parent)
 		{
@@ -33,13 +36,21 @@ namespace FlexiCamera.Controllers
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
 			if (_input.Delta1.magnitude > _startThreshold && _raycast.DidHit) {
+
 				float angle = AngleMath.AngleSigned(Vector3.forward, _targetCamera.transform.forward, Vector3.up);
 
 			
-				Vector3 worldDelta = Quaternion.AngleAxis(angle, Vector3.up) * _input.NormalisedDelta1 * (_panFactor * _raycast.Distance) * (_invert ? -1f : 1f);
+				_worldDelta = Quaternion.AngleAxis(angle, Vector3.up) * _input.NormalisedDelta1 * (_panFactor * _raycast.Distance) * (_invert ? -1f : 1f);
+				_worldDelta = Vector3.ClampMagnitude(_worldDelta, _deltaClamp);
+
+			}
+			if (_worldDelta.magnitude > _startThreshold) {
+
+				Vector3 mod = _worldDelta;
+				_worldDelta *= _dampingFactor;
 
 				return new List<IModifier>() {
-					new PositionModifier(worldDelta)
+					new PositionModifier(mod)
 				};
 			}
 			return new List<IModifier>();

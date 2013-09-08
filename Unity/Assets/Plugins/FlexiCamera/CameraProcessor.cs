@@ -46,6 +46,8 @@ namespace FlexiCamera
 				new PinchZoomController(this),
 			 	new PanController(this) ,
 				new OrbitController(this) ,
+				new ZoomBoundsController(this),
+				//new MomentumController(this)
 
 			});
 

@@ -43,8 +43,10 @@ namespace FlexiCamera
 
 			_controllers.Add(new List<IController> () { 
 				new RotateOrbitController(this),
+				new PinchZoomController(this),
 			 	new PanController(this) ,
-				new OrbitController(this) 
+				new OrbitController(this) ,
+
 			});
 
 		}

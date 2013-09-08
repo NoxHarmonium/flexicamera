@@ -160,7 +160,7 @@ GameObject:
   - 64: {fileID: 692454731}
   - 23: {fileID: 692454730}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,8 +211,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 692454729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -.280000001, z: 0}
+  m_LocalScale: {x: 50, y: 1, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1001 &790846124
@@ -250,90 +250,31 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400006, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400006, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400008, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400008, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
+    - target: {fileID: 11400002, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
+      propertyPath: AllowLocking
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
+      propertyPath: requiredFingerCount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
+      propertyPath: requiredFingerCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
+      propertyPath: MoveTolerance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
+      propertyPath: ApplySameDirectionConstraint
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400012, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: Delegate
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400012, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400018, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: CanExecute
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400018, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400020, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: CanExecute
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400020, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400022, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: HierachyManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400022, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-      propertyPath: CanExecute
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11400026, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-    - {fileID: 11400024, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
-    - {fileID: 11400016, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c1f64134df2b4073b06427af4f8c529, type: 2}
   m_RootGameObject: {fileID: 1807527353}
   m_IsPrefabParent: 0
@@ -376,6 +317,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2031f0c3808f04cf9876e7f97bffea2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1750346968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1750346972}
+  - 33: {fileID: 1750346971}
+  - 64: {fileID: 1750346970}
+  - 23: {fileID: 1750346969}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1750346969
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750346968}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: fdea0bd892bbd43529f03200ab8c9be6, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!64 &1750346970
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750346968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &1750346971
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750346968}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1750346972
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750346968}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.7220459e-06, y: -9.53674316e-06, z: -1.04904175e-05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1790608132
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +432,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1807527354}
   - 114: {fileID: 1807527368}
+  - 114: {fileID: 1807527367}
+  - 114: {fileID: 1807527366}
+  - 114: {fileID: 1807527365}
   - 114: {fileID: 1807527364}
   - 114: {fileID: 1807527363}
   - 114: {fileID: 1807527362}
@@ -471,8 +482,8 @@ MonoBehaviour:
   SendMessageToSelection: 1
   MessageTarget: {fileID: 1790608132}
   Layer: 1
-  CanExecute: {fileID: 0}
-  HierachyManager: {fileID: 0}
+  CanExecute: {fileID: 1807527366}
+  HierachyManager: {fileID: 1807527367}
   MoveMessageName: OnFingerMove
   StationaryMessageName: OnFingerStationary
   TrackMove: 1
@@ -495,8 +506,8 @@ MonoBehaviour:
   SendMessageToSelection: 1
   MessageTarget: {fileID: 1790608132}
   Layer: 0
-  CanExecute: {fileID: 0}
-  HierachyManager: {fileID: 0}
+  CanExecute: {fileID: 1807527366}
+  HierachyManager: {fileID: 1807527367}
   MessageName: OnFingerUp
 --- !u!114 &1807527357
 MonoBehaviour:
@@ -516,8 +527,8 @@ MonoBehaviour:
   SendMessageToSelection: 1
   MessageTarget: {fileID: 1790608132}
   Layer: 1
-  CanExecute: {fileID: 0}
-  HierachyManager: {fileID: 0}
+  CanExecute: {fileID: 1807527366}
+  HierachyManager: {fileID: 1807527367}
   MessageName: OnFingerDown
 --- !u!114 &1807527358
 MonoBehaviour:
@@ -533,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 3
   AllowLocking: 1
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 0
   requiredFingerCount: 1
@@ -541,7 +552,7 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnPinch
@@ -565,7 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 3
   AllowLocking: 1
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 0
   requiredFingerCount: 1
@@ -573,7 +584,7 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnTwist
@@ -596,7 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 2
   AllowLocking: 1
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 1
   UsesCoolDown: 0
   requiredFingerCount: 2
@@ -604,15 +615,15 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnTwoFingerDrag
   EventMessageTarget: {fileID: 1790608132}
   SendMessageToSelection: 0
   IsExclusive: 1
-  MoveTolerance: 5
-  ApplySameDirectionConstraint: 0
+  MoveTolerance: 15
+  ApplySameDirectionConstraint: 1
 --- !u!114 &1807527361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,8 +637,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Layer: 1
-  AllowLocking: 1
-  HierachyManager: {fileID: 0}
+  AllowLocking: 0
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 0
   requiredFingerCount: 1
@@ -635,7 +646,7 @@ MonoBehaviour:
   ResetMode: 1
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnDrag
@@ -658,7 +669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 1
   AllowLocking: 0
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 0
   requiredFingerCount: 1
@@ -666,7 +677,7 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnSwipe
@@ -691,7 +702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 1
   AllowLocking: 0
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 0
   requiredFingerCount: 1
@@ -699,7 +710,7 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnLongPress
@@ -722,7 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Layer: 1
   AllowLocking: 0
-  HierachyManager: {fileID: 0}
+  HierachyManager: {fileID: 1807527367}
   CausesCoolDown: 0
   UsesCoolDown: 1
   requiredFingerCount: 1
@@ -730,7 +741,7 @@ MonoBehaviour:
   ResetMode: 2
   Raycaster: {fileID: 0}
   ClusterManager: {fileID: 0}
-  Delegate: {fileID: 0}
+  Delegate: {fileID: 1807527366}
   Disabled: 0
   UseSendMessage: 1
   EventMessageName: OnTap
@@ -741,6 +752,49 @@ MonoBehaviour:
   MoveTolerance: 20
   MaxDuration: .100000001
   MaxDelayBetweenTaps: .5
+--- !u!114 &1807527365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400016, guid: 6c1f64134df2b4073b06427af4f8c529,
+    type: 2}
+  m_PrefabInternal: {fileID: 790846124}
+  m_GameObject: {fileID: 1807527353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37f333b2079c54a51b1538e8be32e823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NGUILayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  NGUICamera: {fileID: 0}
+--- !u!114 &1807527366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400024, guid: 6c1f64134df2b4073b06427af4f8c529,
+    type: 2}
+  m_PrefabInternal: {fileID: 790846124}
+  m_GameObject: {fileID: 1807527353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062b890ed2c784eac8c95f058e1ad49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1807527367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400026, guid: 6c1f64134df2b4073b06427af4f8c529,
+    type: 2}
+  m_PrefabInternal: {fileID: 790846124}
+  m_GameObject: {fileID: 1807527353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3ca7d3c6524c92b45c70bbdf5bbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockTime: .400000006
+  coolDownTime: .5
+  coolUpTime: .100000001
 --- !u!114 &1807527368
 MonoBehaviour:
   m_ObjectHideFlags: 0

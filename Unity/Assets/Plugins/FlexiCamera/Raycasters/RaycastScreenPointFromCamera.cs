@@ -45,6 +45,15 @@ namespace FlexiCamera.Raycasters
 				return  _hitInfo.distance;
 			}
 		}
+		public Vector3 CastPoint {
+			get {
+				return _screenPosition;
+			}
+			set {
+				_screenPosition = value;
+			}
+		}
+
 		#endregion
 	}
 }

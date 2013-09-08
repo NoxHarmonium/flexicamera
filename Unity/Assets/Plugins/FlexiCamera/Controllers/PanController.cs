@@ -32,11 +32,11 @@ namespace FlexiCamera.Controllers
 			_raycast.Invalidate();
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
-			if (_input.Delta.magnitude > _startThreshold && _raycast.DidHit) {
+			if (_input.Delta1.magnitude > _startThreshold && _raycast.DidHit) {
 				float angle = AngleMath.AngleSigned(Vector3.forward, _targetCamera.transform.forward, Vector3.up);
 
 			
-				Vector3 worldDelta = Quaternion.AngleAxis(angle, Vector3.up) * _input.NormalisedDelta * (_panFactor * _raycast.Distance) * (_invert ? -1f : 1f);
+				Vector3 worldDelta = Quaternion.AngleAxis(angle, Vector3.up) * _input.NormalisedDelta1 * (_panFactor * _raycast.Distance) * (_invert ? -1f : 1f);
 
 				return new List<IModifier>() {
 					new PositionModifier(worldDelta)

@@ -15,6 +15,10 @@ namespace FlexiCamera.Raycasters
 		float Distance {
 			get;
 		}
+		Vector3 CastPoint {
+			get;
+			set;
+		}
 
 		void Invalidate();
 	}

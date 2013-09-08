@@ -3,22 +3,22 @@ using UnityEngine;
 
 namespace FlexiCamera.Inputs
 {
-	public class TwistInput : IContinuousInput
+	public class PinchInput : IContinuousInput
 	{
 		protected InteractionManager _interactionManager;
 
-		public TwistInput()
+		public PinchInput()
 		{
 			_interactionManager = InteractionManager.Instance;
-			_interactionManager.AddRotationZone(
+			_interactionManager.AddPinchZone(
 				new Rect(0, 0, Screen.width, Screen.height),
 				InteractionManager.InteractionLayer.IN_WORLD_A,
-				StartTwist,
-				UpdateTwist,
-				EndTwist);
+				StartPinch,
+				UpdatePinch,
+				EndPinch);
 		}
 
-		bool StartTwist(Vector2 pos, Vector2 pos2, float factor)
+		bool StartPinch(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position1 = pos;
 			Position2 = pos2;
@@ -27,7 +27,7 @@ namespace FlexiCamera.Inputs
 			return false;
 		}
 
-		bool UpdateTwist(Vector2 pos, Vector2 pos2, float factor)
+		bool UpdatePinch(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position1 = pos;
 			Position2 = pos2;
@@ -36,7 +36,7 @@ namespace FlexiCamera.Inputs
 			return false;
 		}
 
-		bool EndTwist(Vector2 pos, Vector2 pos2, float factor)
+		bool EndPinch(Vector2 pos, Vector2 pos2, float factor)
 		{
 			Position1 = pos;
 			Position2 = pos2;

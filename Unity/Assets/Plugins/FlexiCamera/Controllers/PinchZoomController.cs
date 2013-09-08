@@ -8,20 +8,20 @@ namespace FlexiCamera.Controllers
 	using Inputs;
 	using Modifiers;
 
-	public class RotateOrbitController : IController
+	public class PinchZoomController : IController
 	{
 		protected Camera _targetCamera;
 		protected RaycastScreenPointFromCamera _raycast;
-		protected TwistInput _input;
-		protected float _rotateFactor = 1f;
+		protected PinchInput _input;
+		protected float _zoomFactor = 0.1f;
 		protected float _startThreshold = 0.01f;
 
 
-		public RotateOrbitController(CameraProcessor parent)
+		public PinchZoomController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
 			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero, parent.LayerMask);
-			_input = new TwistInput();
+			_input = new PinchInput();
 
 		}
 
@@ -36,26 +36,12 @@ namespace FlexiCamera.Controllers
 			if (Mathf.Abs(_input.Factor) > _startThreshold && _raycast.DidHit) {
 
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
+				Vector3 deltaPos = (_raycast.HitPoint - t.Position).normalized * _input.Factor * _zoomFactor;
 
-				float delta =  _input.Factor * _rotateFactor;
-
-				//Debug.Log("Delta: " + delta);
-
-				Quaternion deltaRot = Quaternion.AngleAxis(delta, Vector3.up);
-
-				Vector3 currentPos = t.Position;
-				Vector3 newPos = currentPos;
-				newPos = newPos - _raycast.HitPoint;
-				newPos = deltaRot * newPos;
-				newPos += _raycast.HitPoint;
-
-
-				Vector3 deltaPos = newPos - currentPos;
 
 
 				return new List<IModifier>() {
 					new PositionModifier(deltaPos),
-					new RotationModifier(deltaRot)
 				};
 			}
 			return new List<IModifier>();

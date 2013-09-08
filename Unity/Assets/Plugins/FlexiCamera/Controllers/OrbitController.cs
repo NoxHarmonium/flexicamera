@@ -38,12 +38,12 @@ namespace FlexiCamera.Controllers
 			}
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
-			if (_input.Delta.magnitude > _startThreshold && _raycast.DidHit) {
+			if (_input.Delta1.magnitude > _startThreshold && _raycast.DidHit) {
 
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
 
-				aroundDegrees += _input.Delta.x;
-				pitchDegrees += _input.Delta.y;
+				aroundDegrees += _input.Delta1.x;
+				pitchDegrees += _input.Delta1.y;
 				pitchDegrees = Mathf.Clamp(pitchDegrees, minAngle, maxAngle);
 
 				float radius = Vector3.Distance(t.Position, _raycast.HitPoint);				

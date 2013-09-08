@@ -20,45 +20,66 @@ namespace FlexiCamera.Inputs
 
 		bool StartDrag(Vector2 pos, Vector2 velocity)
 		{
-			Position = pos;
-			Delta = velocity;
+			Position1 = pos;
+			Delta1 = velocity;
 			return false;
 		}
 
 		bool UpdateDrag(Vector2 pos, Vector2 velocity)
 		{
-			Position = pos;
-			Delta = velocity;
+			Position1 = pos;
+			Delta1 = velocity;
 			return false;
 		}
 
 		bool EndDrag(Vector2 pos, Vector2 velocity)
 		{
-			Position = pos;
-			Delta = velocity;
+			Position1 = pos;
+			Delta1 = velocity;
 			return false;
 		}
 
 		#region IContinuousInput implementation
-		public UnityEngine.Vector3 Delta {
+		public UnityEngine.Vector3 Delta1 {
 			get ;
 			protected set;
 		}
-		public UnityEngine.Vector3 NormalisedDelta {
+		public UnityEngine.Vector3 NormalisedDelta1 {
 			get {
-				return new Vector3(this.Delta.x/Screen.width, 0f, this.Delta.y/Screen.height);
+				return new Vector3(this.Delta1.x/Screen.width, 0f, this.Delta1.y/Screen.height);
 			}
 		}
-		public UnityEngine.Vector3 Position {
+		public UnityEngine.Vector3 Position1 {
 			get ;
 			protected set;
 		}
-		public UnityEngine.Vector3 NormalisedPosition
+		public UnityEngine.Vector3 NormalisedPosition1
 		{
 			get {
-				return new Vector3(this.Position.x/Screen.width, 0f, this.Position.y/Screen.height);
+				return new Vector3(this.Position1.x/Screen.width, 0f, this.Position1.y/Screen.height);
 			}
 		}
+
+		public UnityEngine.Vector3 Delta2 {
+			get ;
+			protected set;
+		}
+		public UnityEngine.Vector3 NormalisedDelta2 {
+			get {
+				return new Vector3(this.Delta2.x/Screen.width, 0f, this.Delta2.y/Screen.height);
+			}
+		}
+		public UnityEngine.Vector3 Position2 {
+			get ;
+			protected set;
+		}
+		public UnityEngine.Vector3 NormalisedPosition2
+		{
+			get {
+				return new Vector3(this.Position2.x/Screen.width, 0f, this.Position2.y/Screen.height);
+			}
+		}
+
 		public float Factor {
 			get ;
 			protected set;

@@ -108,6 +108,7 @@ namespace FlexiCamera.InputAdapters
 			this.FingerPositions = fingerPositions;
 			this.FingerDeltas = fingerDeltas;
 			this.GestureData = gestureData;
+			GenerateNormalisedLists();
 		
 		}
 		
@@ -122,7 +123,7 @@ namespace FlexiCamera.InputAdapters
 			this.FingerPositions = new List<Vector2>() { fingerPosition };
 			this.FingerDeltas = new List<Vector2>() { fingerDelta };
 			this.GestureData = new List<float>() { gestureData };
-		
+			GenerateNormalisedLists();
 		}
 		
 		#endregion

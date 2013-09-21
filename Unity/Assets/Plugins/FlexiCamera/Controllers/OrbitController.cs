@@ -5,7 +5,6 @@ using System.Collections.Generic;
 namespace FlexiCamera.Controllers
 {
 	using Raycasters;
-	using Inputs;
 	using Modifiers;
 	using InputAdapters;
 
@@ -80,7 +79,6 @@ namespace FlexiCamera.Controllers
 				_inputDelta *= _dampingFactor;
 
 				if (_pitchDegrees > _maxAngle) {
-					_pendingUpdate = false;
 					return ;
 				}
 
@@ -102,7 +100,6 @@ namespace FlexiCamera.Controllers
 
 			}
 			
-			_pendingUpdate = false;
 		}
 		
 		public List<IModifier> GetModifiers()

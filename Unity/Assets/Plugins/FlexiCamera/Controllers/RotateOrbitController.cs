@@ -5,7 +5,6 @@ using System.Collections.Generic;
 namespace FlexiCamera.Controllers
 {
 	using Raycasters;
-	using Inputs;
 	using Modifiers;
 	using InputAdapters;
 
@@ -66,7 +65,6 @@ namespace FlexiCamera.Controllers
 					return;
 
 				}
-				_pendingUpdate = false;
 			}
 		
 		}

@@ -12,6 +12,7 @@ namespace FlexiCamera
 	{
 		protected Camera _targetCamera;
 		protected List<IController> _controllers;
+		protected InputAdapter _inputAdapter;
 
 		public Camera TargetCamera
 		{
@@ -53,6 +54,14 @@ namespace FlexiCamera
 				//new MomentumController(this)
 
 			};
+			
+			_inputAdapter = this.gameObject.GetComponent<InputAdapter>();
+			
+			if (_inputAdapter == null)
+			{
+				Debug.LogError("There are no input adapters on this GameObject. Add one before continuing.");
+				this.gameObject.SetActive(false);
+			}
 
 		}
 
@@ -76,7 +85,7 @@ namespace FlexiCamera
 			LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
 			bool showDebugDivider = false;
 			
-			List<InputMessage> inputMessages = new List<InputMessage>();
+			List<InputMessage> inputMessages = _inputAdapter.GetUpdates();
 
 			foreach (IController controller in _controllers) {
 				foreach (InputMessage inputMessage in inputMessages)

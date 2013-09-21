@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FlexiCamera.InputAdapters
 {
-	public class FingerGesturesInputAdapter : MonoBehaviour, IInputAdapter
+	public class FingerGesturesInputAdapter : InputAdapter
 	{
 		protected const int INPUT_MESSAGE_LIST_PREALLOC = 10;
 		
@@ -13,7 +13,7 @@ namespace FlexiCamera.InputAdapters
 		/// <summary>
 		/// Gets the updates to gesture states since the last call 
 		/// </summary>
-		public List<InputMessage> GetUpdates()
+		public override List<InputMessage> GetUpdates()
 		{
 			List<InputMessage> updates = _updates;
 			_updates = new List<InputMessage>(INPUT_MESSAGE_LIST_PREALLOC);

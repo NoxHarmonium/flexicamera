@@ -1,14 +1,19 @@
-using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace FlexiCamera.InputAdapters
 {
-	public interface IInputAdapter
+	public class InputAdapter : MonoBehaviour
 	{
 		/// <summary>
 		/// Gets the updates to gesture states since the last call 
 		/// </summary>
-		List<InputMessage> GetUpdates();
+		public virtual List<InputMessage> GetUpdates()
+		{
+		
+			return null;
+		}
+		
 	}
 }
 

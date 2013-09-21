@@ -23,6 +23,11 @@ namespace FlexiCamera
 			//	x += 360;
 			return Mathf.Abs(x);
 		}
+		
+		public static Vector3 SwapYZ(Vector2 v)
+		{
+			return new Vector3(v.x, 0f, v.y);
+		}
 
 	}
 }

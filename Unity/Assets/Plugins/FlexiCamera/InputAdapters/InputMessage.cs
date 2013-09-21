@@ -70,6 +70,22 @@ namespace FlexiCamera.InputAdapters
 		}
 		
 		/// <summary>
+		/// Gets the normalised positions of each finger utilised in gesture that triggered this message 
+		/// </summary>
+		public List<Vector2> NormalisedFingerPositions {
+			get;
+			protected set;
+		}
+			
+		/// <summary>
+		/// Gets the normalised change in position of each finger utilised in gesture that triggered this message 
+		/// </summary>
+		public List<Vector2> NormalisedFingerDeltas {
+			get;
+			protected set;
+		}
+		
+		/// <summary>
 		/// Gets data associated with the gesture such as twist or pinch amounts
 		/// </summary>
 		public List<float> 	 GestureData {
@@ -107,6 +123,26 @@ namespace FlexiCamera.InputAdapters
 			this.FingerDeltas = new List<Vector2>() { fingerDelta };
 			this.GestureData = new List<float>() { gestureData };
 		
+		}
+		
+		#endregion
+		
+		#region Protected Methods
+		
+		protected void GenerateNormalisedLists()
+		{
+			NormalisedFingerDeltas = new List<Vector2>();	
+			NormalisedFingerPositions = new List<Vector2>();	
+			
+			foreach (Vector2 p in this.FingerDeltas)
+			{
+				NormalisedFingerDeltas.Add(new Vector2(p.x / Screen.width, p.y / Screen.width));
+			}
+			
+			foreach (Vector2 p in this.FingerPositions)
+			{
+				NormalisedFingerPositions.Add(new Vector2(p.x / Screen.width, p.y / Screen.width));
+			}
 		}
 		
 		#endregion

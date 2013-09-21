@@ -8,14 +8,16 @@ namespace FlexiCamera.InputAdapters
 	{
 		protected const int INPUT_MESSAGE_LIST_PREALLOC = 10;
 		
-		List<InputMessage> updates = new List<InputMessage>(INPUT_MESSAGE_LIST_PREALLOC);
+		List<InputMessage> _updates = new List<InputMessage>(INPUT_MESSAGE_LIST_PREALLOC);
 		
 		/// <summary>
 		/// Gets the updates to gesture states since the last call 
 		/// </summary>
 		public List<InputMessage> GetUpdates()
 		{
-			throw new System.NotImplementedException();
+			List<InputMessage> updates = _updates;
+			_updates = new List<InputMessage>(INPUT_MESSAGE_LIST_PREALLOC);
+			return updates;
 		}
 		
 		//--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ namespace FlexiCamera.InputAdapters
 		
 		public void OnFingerDown(FingerDownEvent e)
 		{
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.FingerDown, 
 				InputMessage.MessageTypes.Transient,
 				e.Position
@@ -35,7 +37,7 @@ namespace FlexiCamera.InputAdapters
 
 		public void OnFingerUp(FingerUpEvent e)
 		{
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.FingerUp, 
 				InputMessage.MessageTypes.Transient,
 				e.Position
@@ -44,7 +46,7 @@ namespace FlexiCamera.InputAdapters
 
 		public void OnFingerStationary(FingerMotionEvent e)
 		{
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.FingerStationary, 
 				InputMessage.MessageTypes.Transient,
 				e.Position
@@ -53,7 +55,7 @@ namespace FlexiCamera.InputAdapters
 
 		public void OnFingerMove(FingerMotionEvent e)
 		{
-		 	updates.Add(new InputMessage(
+		 	_updates.Add(new InputMessage(
 				InputMessage.InputTypes.FingerMoving, 
 				InputMessage.MessageTypes.Transient,
 				e.Position
@@ -65,7 +67,7 @@ namespace FlexiCamera.InputAdapters
 		public void OnTap(TapGesture tap)
 		{
 			if (tap.State == GestureRecognitionState.Recognized) {
-				updates.Add(new InputMessage(
+				_updates.Add(new InputMessage(
 					InputMessage.InputTypes.OneFingerTap, 
 					InputMessage.MessageTypes.Transient,
 					tap.Fingers.Select(f => f.Position).ToList(),
@@ -77,7 +79,7 @@ namespace FlexiCamera.InputAdapters
 		public void OnLongPress(LongPressGesture longPress)
 		{
 			if (longPress.State == GestureRecognitionState.Recognized) {
-				updates.Add(new InputMessage(
+				_updates.Add(new InputMessage(
 					InputMessage.InputTypes.OneFingerLongTap, 
 					InputMessage.MessageTypes.Transient,
 					longPress.Fingers.Select(f => f.Position).ToList(),
@@ -133,7 +135,7 @@ namespace FlexiCamera.InputAdapters
 
 			}
 			
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.OneFingerDrag, 
 				type,
 				drag.Fingers.Select(f => f.Position).ToList(),
@@ -160,7 +162,7 @@ namespace FlexiCamera.InputAdapters
 
 			}
 			
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.TwoFingerDrag, 
 				type,
 				drag.Fingers.Select(f => f.Position).ToList(),
@@ -187,7 +189,7 @@ namespace FlexiCamera.InputAdapters
 
 			}
 			
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.TwoFingerTwist, 
 				type,
 				twist.Fingers.Select(f => f.Position).ToList(),
@@ -215,7 +217,7 @@ namespace FlexiCamera.InputAdapters
 
 			}
 			
-			updates.Add(new InputMessage(
+			_updates.Add(new InputMessage(
 				InputMessage.InputTypes.TwoFingerTwist, 
 				type,
 				pinch.Fingers.Select(f => f.Position).ToList(),

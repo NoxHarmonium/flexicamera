@@ -7,6 +7,7 @@ namespace FlexiCamera.Controllers
 	using Raycasters;
 	using Inputs;
 	using Modifiers;
+	using InputAdapters;
 
 	public class ZoomBoundsController : IController
 	{
@@ -25,6 +26,12 @@ namespace FlexiCamera.Controllers
 
 		#region IController implementation
 
+		public void ProcessMessage(InputMessage message)
+		{
+			
+		
+		}
+		
 		public List<IModifier> GetModifiers()
 		{
 			_raycast.Invalidate();

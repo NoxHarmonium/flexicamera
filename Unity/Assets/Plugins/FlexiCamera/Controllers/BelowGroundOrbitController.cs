@@ -7,12 +7,12 @@ namespace FlexiCamera.Controllers
 	using Raycasters;
 	using Inputs;
 	using Modifiers;
+	using InputAdapters;
 
 	public class BelowGroundOrbitController : IController
 	{
 		protected Camera _targetCamera;
 		protected RaycastFromCameraCenter _raycast;
-		protected TwoFingerDragInput _input;
 		protected float _rotateYFactor = 1.0f;
 		protected float _rotateXFactor = 1.0f;
 		protected float _startThreshold = 0.01f;
@@ -26,33 +26,46 @@ namespace FlexiCamera.Controllers
 		protected float _tiltUpFactor = 0.05f;
 		protected Vector2 _inputDelta;
 
+		protected bool _pendingUpdate;
+		protected Vector3 _deltaPos;
+		protected Quaternion _deltaRot;
+
 		public BelowGroundOrbitController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
 			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
-			_input = new TwoFingerDragInput();
 
 		}
-
+		
 		#region IController implementation
-
-		public List<IModifier> GetModifiers()
+		
+		public void ProcessMessage(InputMessage message)
 		{
-			if (_input.GestureHasReset && _pitchDegrees < _minAngle) {
-				_raycast.Invalidate();
-
-				// TODO: Less ugly way to determine this
-				Vector3 angles = Vector3.Scale(Quaternion.LookRotation(_targetCamera.transform.forward).eulerAngles - new Vector3(0f, 180f, 0f), new Vector3(-1f, 1f, 1f));
-
-				_pitchDegrees = angles.x;
-				_aroundDegrees = angles.y;
-
+			if (message.InputType != InputMessage.InputTypes.TwoFingerDrag)
+			{
+				return;
 			}
-
+			
+			if (message.MessageType == InputMessage.MessageTypes.Begin)
+			{	
+				if (_pitchDegrees < _minAngle) {
+					_raycast.Invalidate();
+	
+					// TODO: Less ugly way to determine this
+					Vector3 angles = Vector3.Scale(Quaternion.LookRotation(_targetCamera.transform.forward).eulerAngles - new Vector3(0f, 180f, 0f), new Vector3(-1f, 1f, 1f));
+	
+					_pitchDegrees = angles.x;
+					_aroundDegrees = angles.y;
+	
+				}
+			}
+			
+			Vector2 fingerDelta = message.FingerDeltas[0];
+			
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
-			if (_input.Delta1.magnitude > _startThreshold) {
+			if (fingerDelta.magnitude > _startThreshold) {
 
-				_inputDelta = Vector2.ClampMagnitude(_input.Delta1, _deltaClamp);
+				_inputDelta = Vector2.ClampMagnitude(fingerDelta, _deltaClamp);
 
 			}
 
@@ -67,7 +80,8 @@ namespace FlexiCamera.Controllers
 				_inputDelta *= _dampingFactor;
 			
 				if (_pitchDegrees < _minAngle) {
-					return new List<IModifier>();
+					_pendingUpdate = false;
+					return;
 				}
 
 				Vector3 pivot = _raycast.HitPoint  + (Vector3.up * _tiltUpFactor * (_pitchDegrees - _minAngle));
@@ -77,22 +91,31 @@ namespace FlexiCamera.Controllers
 				
 				Vector3 currentPos = t.Position;
 				Vector3 newPos = Quaternion.Euler(_minAngle, _aroundDegrees, 0) * (radius * Vector3.forward) + _raycast.HitPoint;
-				Vector3 deltaPos = newPos - currentPos;
+				_deltaPos = newPos - currentPos;
 
 				Quaternion currentRot = t.Rotation;
 				Quaternion newRot = Quaternion.LookRotation(pivot - newPos);
-				Quaternion deltaRot = newRot * Quaternion.Inverse(currentRot);
+				_deltaRot = newRot * Quaternion.Inverse(currentRot);
 
-
-				//Debug.Log(string.Format("{0} = {1}",  Vector3.Scale(Quaternion.LookRotation(_targetCamera.transform.forward).eulerAngles - new Vector3(0f, 180f, 0f), new Vector3(-1f, 1f, 0f)),  new Vector3(_pitchDegrees, _aroundDegrees, 0)));
-				//Debug.Log(_pitchDegrees - _minAngle);
+				_pendingUpdate = true;
+				return;
+			}
 			
+			_pendingUpdate = false;
+		}
 
+		public List<IModifier> GetModifiers()
+		{
+			if (_pendingUpdate)
+			{
+				_pendingUpdate = false;
+				
 				return new List<IModifier>() {
-					new RotationModifier(deltaRot),
-					new PositionModifier(deltaPos),
+					new RotationModifier(this._deltaRot),
+					new PositionModifier(this._deltaPos)
 				};
 			}
+			
 			return new List<IModifier>();
 		}
 

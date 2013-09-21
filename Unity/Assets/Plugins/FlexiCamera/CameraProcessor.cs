@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FlexiCamera.Modifiers;
 using FlexiCamera.Controllers;
+using FlexiCamera.InputAdapters;
 
 namespace FlexiCamera
 {
@@ -74,8 +75,14 @@ namespace FlexiCamera
 		{
 			LinkedList<IModifier> modifiers = new LinkedList<IModifier>();
 			bool showDebugDivider = false;
+			
+			List<InputMessage> inputMessages = new List<InputMessage>();
 
 			foreach (IController controller in _controllers) {
+				foreach (InputMessage inputMessage in inputMessages)
+				{
+					controller.ProcessMessage(inputMessage);
+				}
 				List<IModifier> cModifiers = controller.GetModifiers();
 				if (cModifiers.Count > 0) {
 					Debug.Log("Controller: " + controller.GetType().Name + " Modifiers: " + cModifiers.Count);

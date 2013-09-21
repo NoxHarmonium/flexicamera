@@ -9,15 +9,24 @@ namespace FlexiCamera.InputAdapters
 		
 		public enum InputTypes
 		{
+			// Discrete gestures
 			OneFingerTap,
+			OneFingerLongTap,
 			OneFingerDrag,
 			TwoFingerDrag,
 			TwoFingerTwist,
-			TwoFingerPinch
+			TwoFingerPinch,
+			
+			// Continuous gestures
+			FingerDown,
+			FingerUp,
+			FingerStationary,
+			FingerMoving
 		}
 		
 		public enum MessageTypes
 		{
+			Transient,
 			Begin,
 			Update,
 			End
@@ -82,6 +91,20 @@ namespace FlexiCamera.InputAdapters
 			this.FingerPositions = fingerPositions;
 			this.FingerDeltas = fingerDeltas;
 			this.GestureData = gestureData;
+		
+		}
+		
+		public InputMessage(
+			InputTypes inputType, MessageTypes messageType, 
+			Vector2 fingerPosition, Vector2 fingerDelta = null, 
+			float gestureData = null
+		)
+		{
+			this.InputType = inputType;
+			this.MessageType = messageType;
+			this.FingerPositions = new List<Vector2>() { fingerPosition };
+			this.FingerDeltas = new List<Vector2>() { fingerDelta };
+			this.GestureData = new List<float>() { gestureData };
 		
 		}
 		

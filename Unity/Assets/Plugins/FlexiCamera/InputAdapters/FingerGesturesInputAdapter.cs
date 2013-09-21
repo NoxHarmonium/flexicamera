@@ -116,7 +116,7 @@ namespace FlexiCamera.InputAdapters
 		
 		public void OnDrag(DragGesture drag)
 		{
-			InputMessage.MessageTypes type;
+			InputMessage.MessageTypes type = InputMessage.MessageTypes.Failed;
 			
 			switch (drag.Phase) {
 				case ContinuousGesturePhase.Started:
@@ -143,7 +143,7 @@ namespace FlexiCamera.InputAdapters
 
 		public void OnTwoFingerDrag(DragGesture drag)
 		{
-			InputMessage.MessageTypes type;
+			InputMessage.MessageTypes type = InputMessage.MessageTypes.Failed;
 			
 			switch (drag.Phase) {
 				case ContinuousGesturePhase.Started:
@@ -170,7 +170,7 @@ namespace FlexiCamera.InputAdapters
 
 		public void OnTwist(TwistGesture twist)
 		{
-			InputMessage.MessageTypes type;
+			InputMessage.MessageTypes type = InputMessage.MessageTypes.Failed;
 			
 			switch (twist.Phase) {
 				case ContinuousGesturePhase.Started:
@@ -198,7 +198,7 @@ namespace FlexiCamera.InputAdapters
 
 	public void OnPinch(PinchGesture pinch)
 		{
-			InputMessage.MessageTypes type;
+			InputMessage.MessageTypes type = InputMessage.MessageTypes.Failed;
 			
 			switch (pinch.Phase) {
 				case ContinuousGesturePhase.Started:

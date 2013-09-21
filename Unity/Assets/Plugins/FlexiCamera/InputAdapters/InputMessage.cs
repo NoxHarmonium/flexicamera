@@ -29,7 +29,8 @@ namespace FlexiCamera.InputAdapters
 			Transient,
 			Begin,
 			Update,
-			End
+			End,
+			Failed
 		}
 		
 		#endregion
@@ -96,8 +97,8 @@ namespace FlexiCamera.InputAdapters
 		
 		public InputMessage(
 			InputTypes inputType, MessageTypes messageType, 
-			Vector2 fingerPosition, Vector2 fingerDelta = null, 
-			float gestureData = null
+			Vector2 fingerPosition, Vector2 fingerDelta = default(Vector2), 
+			float gestureData = default(float)
 		)
 		{
 			this.InputType = inputType;

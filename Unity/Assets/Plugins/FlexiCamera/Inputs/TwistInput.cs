@@ -5,17 +5,17 @@ namespace FlexiCamera.Inputs
 {
 	public class TwistInput : IContinuousInput
 	{
-		protected InteractionManager _interactionManager;
+		//protected InteractionManager _interactionManager;
 
 		public TwistInput()
 		{
-			_interactionManager = InteractionManager.Instance;
-			_interactionManager.AddRotationZone(
-				new Rect(0, 0, Screen.width, Screen.height),
-				InteractionManager.InteractionLayer.IN_WORLD_A,
-				StartTwist,
-				UpdateTwist,
-				EndTwist);
+			//_interactionManager = InteractionManager.Instance;
+			//_interactionManager.AddRotationZone(
+			//	new Rect(0, 0, Screen.width, Screen.height),
+			//	InteractionManager.InteractionLayer.IN_WORLD_A,
+			//	StartTwist,
+			//	UpdateTwist,
+			//	EndTwist);
 		}
 
 		bool StartTwist(Vector2 pos, Vector2 pos2, float factor)

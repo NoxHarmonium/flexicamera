@@ -5,7 +5,7 @@ namespace FlexiCamera.Inputs
 {
 	public class TwoFingerDragInput : IContinuousInput
 	{
-		protected InteractionManager _interactionManager;
+		//protected InteractionManager _interactionManager;
 		protected bool _gestureHasReset;
 
 		public bool GestureHasReset
@@ -35,13 +35,13 @@ namespace FlexiCamera.Inputs
 
 		public TwoFingerDragInput()
 		{
-			_interactionManager = InteractionManager.Instance;
-			_interactionManager.AddTwoFingerDragZone(
-				new Rect(0, 0, Screen.width, Screen.height),
-				InteractionManager.InteractionLayer.IN_WORLD_A,
-				StartDrag,
-				UpdateDrag,
-				EndDrag);
+			//_interactionManager = InteractionManager.Instance;
+			//_interactionManager.AddTwoFingerDragZone(
+			//	new Rect(0, 0, Screen.width, Screen.height),
+			//	InteractionManager.InteractionLayer.IN_WORLD_A,
+			//	StartDrag,
+			//	UpdateDrag,
+			//	EndDrag);
 
 			DragState = DragStates.Ended;
 		}

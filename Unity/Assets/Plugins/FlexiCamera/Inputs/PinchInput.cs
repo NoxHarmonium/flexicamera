@@ -5,17 +5,17 @@ namespace FlexiCamera.Inputs
 {
 	public class PinchInput : IContinuousInput
 	{
-		protected InteractionManager _interactionManager;
+		//protected InteractionManager _interactionManager;
 
 		public PinchInput()
 		{
-			_interactionManager = InteractionManager.Instance;
-			_interactionManager.AddPinchZone(
-				new Rect(0, 0, Screen.width, Screen.height),
-				InteractionManager.InteractionLayer.IN_WORLD_A,
-				StartPinch,
-				UpdatePinch,
-				EndPinch);
+			//_interactionManager = InteractionManager.Instance;
+			//_interactionManager.AddPinchZone(
+			//	new Rect(0, 0, Screen.width, Screen.height),
+			//	InteractionManager.InteractionLayer.IN_WORLD_A,
+			//	StartPinch,
+			//	UpdatePinch,
+			//	EndPinch);
 		}
 
 		bool StartPinch(Vector2 pos, Vector2 pos2, float factor)

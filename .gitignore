@@ -6,3 +6,7 @@
 *.pidb
 *.resources
 test-results/
+
+#3rd Party Plugins
+Unity/Assets/Plugins/FingerGestures*
+Unity/Assets/Plugins/Editor/FingerGestures*

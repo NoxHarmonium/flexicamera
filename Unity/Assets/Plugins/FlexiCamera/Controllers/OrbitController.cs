@@ -110,10 +110,6 @@ namespace FlexiCamera.Controllers
 
 				_inputDelta *= _dampingFactor;
 
-				if (_pitchDegrees > _maxAngle) {
-					return new List<IModifier>();
-				}
-
 				_pitchDegrees = Mathf.Clamp(_pitchDegrees, _minAngle, _maxAngle);
 
 				float radius = Vector3.Distance(t.Position, _raycast.HitPoint);				

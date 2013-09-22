@@ -19,7 +19,7 @@ namespace FlexiCamera.Controllers
 		public ZoomBoundsController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
 
 		}
 
@@ -41,8 +41,6 @@ namespace FlexiCamera.Controllers
 				Quaternion deltaRot = default(Quaternion);
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
 				bool active = false;
-
-				//Debug.Log(_raycast.Distance);
 
 				if (_raycast.Distance < _minDistance || _raycast.Distance > _maxDistance) {
 					float overshoot = 0f;

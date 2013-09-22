@@ -18,6 +18,10 @@ namespace FlexiCamera.Controllers
 		protected Vector3 _worldDelta;
 		protected float _deltaClamp = 15f;
 		protected float _dampingFactor = 0.85f;
+		protected bool _limited = false;
+		protected float _limitStart = 1.25f;
+		protected float _limitEnd = 1.5f;
+		protected Vector3 _center = Vector3.zero;
 		
 		protected Vector3 _deltaPos;
 		protected bool _pendingUpdate;
@@ -26,7 +30,16 @@ namespace FlexiCamera.Controllers
 		public PanController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
+		}
+		
+		public PanController(CameraProcessor parent, bool limited, float limitStart, float limitEnd)
+		{
+			this._targetCamera = parent.TargetCamera;
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
+			_limited = limited;
+			_limitStart = limitStart;
+			_limitEnd = limitEnd;
 		}
 
 		#region IController implementation
@@ -51,7 +64,17 @@ namespace FlexiCamera.Controllers
 					_worldDelta = Quaternion.AngleAxis(angle, Vector3.up) * FlexiUtils.SwapYZ(message.NormalisedFingerDeltas[0]) * (_panFactor * _raycast.Distance) * (_invert ? -1f : 1f);
 					_worldDelta = Vector3.ClampMagnitude(_worldDelta, _deltaClamp);
 					
-					Debug.Log(_worldDelta);
+					
+					float distance = Vector3.Distance(_center, _raycast.HitPoint);
+					if (_limited && distance > _limitStart)
+					{
+						float overshoot = (distance - _limitStart);
+						
+						
+						float factor = 1f - Mathf.Clamp((overshoot / _limitEnd), 0f, 1f);
+						Debug.Log(factor);
+						_worldDelta *= factor;				
+					}
 
 				}
 				if (_worldDelta.magnitude > _startThreshold) {
@@ -60,6 +83,8 @@ namespace FlexiCamera.Controllers
 					_worldDelta *= _dampingFactor;
 					_deltaPos = mod;
 					_pendingUpdate = true;
+					
+					message.Use();
 					return;
 				}
 			}

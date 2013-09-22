@@ -24,7 +24,7 @@ namespace FlexiCamera.Controllers
 		public PinchZoomController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero, parent.LayerMask);
+			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero);
 		}
 
 		#region IController implementation
@@ -54,6 +54,8 @@ namespace FlexiCamera.Controllers
 
 					_deltaPos = mod;
 					_pendingUpdate = true;
+					
+					message.Use();
 					return;
 				}
 			}

@@ -32,7 +32,7 @@ namespace FlexiCamera.Controllers
 		public BelowGroundOrbitController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
 
 		}
 		
@@ -96,6 +96,8 @@ namespace FlexiCamera.Controllers
 				_deltaRot = newRot * Quaternion.Inverse(currentRot);
 
 				_pendingUpdate = true;
+				
+				message.Use();
 				return;
 			}
 			

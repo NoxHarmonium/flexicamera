@@ -24,7 +24,7 @@ namespace FlexiCamera.Controllers
 		public RotateOrbitController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero, parent.LayerMask);
+			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero);
 		}
 
 		#region IController implementation
@@ -62,6 +62,8 @@ namespace FlexiCamera.Controllers
 
 					_rotateDelta *= _dampingFactor;
 					_pendingUpdate = true;
+					
+					message.Use();
 					return;
 
 				}

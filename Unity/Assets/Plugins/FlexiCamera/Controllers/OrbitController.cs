@@ -30,7 +30,7 @@ namespace FlexiCamera.Controllers
 		public OrbitController(CameraProcessor parent)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
 
 		}
 
@@ -94,6 +94,8 @@ namespace FlexiCamera.Controllers
 				Quaternion newRot = Quaternion.LookRotation(_raycast.HitPoint - newPos);
 				_deltaRot = newRot * Quaternion.Inverse(currentRot);
 				_pendingUpdate = true;
+				
+				message.Use();
 				return;
 				//Debug.Log(string.Format("{0} = {1}",  Vector3.Scale(Quaternion.LookRotation(_targetCamera.transform.forward).eulerAngles - new Vector3(0f, 180f, 0f), new Vector3(-1f, 1f, 0f)),  new Vector3(_pitchDegrees, _aroundDegrees, 0)));
 

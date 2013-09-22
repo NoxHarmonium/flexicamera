@@ -16,11 +16,13 @@ namespace FlexiCamera.Controllers
 		protected float _bounceTime = 1f;
 		protected Vector3 _center = Vector3.zero;
 		protected float _maxAngle = -7.5f;
+		protected bool _enabled = true;
 
-		public PanBoundsController(CameraProcessor parent)
+		public PanBoundsController(CameraProcessor parent, float maxRadius)
 		{
 			this._targetCamera = parent.TargetCamera;
-			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera, parent.LayerMask);
+			this._raycast = new RaycastFromCameraCenter(parent.TargetCamera);
+			this._maxRadius = maxRadius;
 
 		}
 
@@ -28,12 +30,18 @@ namespace FlexiCamera.Controllers
 
 		public void ProcessMessage(InputMessage message)
 		{
-		
+			_enabled &= !(message.InputType == InputMessage.InputTypes.OneFingerDrag && message.MessageType == InputMessage.MessageTypes.Update);
 		
 		}
 		
 		public List<IModifier> GetModifiers()
 		{
+			if (!_enabled)
+			{
+				_enabled = true;
+				return new List<IModifier>();
+			}
+			
 			_raycast.Invalidate();
 
 			// TODO: Less ugly way to determine this
@@ -58,9 +66,11 @@ namespace FlexiCamera.Controllers
 				}
 
 				if (!active) {
+					_enabled = true;
 					return new List<IModifier>();
 				}
-
+	
+				_enabled = true;
 				return new List<IModifier>() {
 					new PositionModifier(worldDelta),
 				};

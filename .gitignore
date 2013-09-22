@@ -1,0 +1,49 @@
+#User Specific
+*.userprefs
+*.usertasks
+
+#Mono Project Files
+*.pidb
+*.resources
+test-results/
+
+#3rd Party Plugins
+Unity/Assets/Plugins/FingerGestures*
+Unity/Assets/Plugins/Editor/FingerGestures*
+
+
+# Thanks: http://kleber-swf.com/the-definitive-gitignore-for-unity-projects/
+# =============== #
+# Unity generated #
+# =============== #
+Unity/Temp/
+Unity/Obj/
+Unity/UnityGenerated/
+Unity/Library/
+Unity/Build/
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+Unity/ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

@@ -156,12 +156,12 @@ namespace FlexiCamera.InputAdapters
 			
 			foreach (Vector2 p in this.FingerDeltas)
 			{
-				NormalisedFingerDeltas.Add(new Vector2(p.x / Screen.width, p.y / Screen.width));
+				NormalisedFingerDeltas.Add(new Vector2(p.x / Screen.width, p.y / Screen.height));
 			}
 			
 			foreach (Vector2 p in this.FingerPositions)
 			{
-				NormalisedFingerPositions.Add(new Vector2(p.x / Screen.width, p.y / Screen.width));
+				NormalisedFingerPositions.Add(new Vector2(p.x / Screen.width, p.y / Screen.height));
 			}
 		}
 		

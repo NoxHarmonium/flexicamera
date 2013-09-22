@@ -218,7 +218,7 @@ namespace FlexiCamera.InputAdapters
 			}
 			
 			_updates.Add(new InputMessage(
-				InputMessage.InputTypes.TwoFingerTwist, 
+				InputMessage.InputTypes.TwoFingerPinch, 
 				type,
 				pinch.Fingers.Select(f => f.Position).ToList(),
 				pinch.Fingers.Select(f => f.DeltaPosition).ToList(),

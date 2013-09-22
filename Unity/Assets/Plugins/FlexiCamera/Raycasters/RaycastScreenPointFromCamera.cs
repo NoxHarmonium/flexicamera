@@ -7,16 +7,16 @@ namespace FlexiCamera.Raycasters
 	{
 		protected Camera _targetCamera;
 		protected Vector2 _screenPosition;
-		protected RaycastHit _hitInfo;
 		protected bool _didHit;
-		protected LayerMask _layerMask;
 		protected float _maxRayDistance = 100f;
+		protected Plane _plane;
+		protected float _distance;
 
-		public RaycastScreenPointFromCamera(Camera targetCamera, Vector2 screenPosition, LayerMask layerMask)
+		public RaycastScreenPointFromCamera(Camera targetCamera, Vector2 screenPosition)
 		{
 			this._targetCamera = targetCamera;
 			this._screenPosition = screenPosition;
-			this._layerMask = layerMask;
+			_plane = new Plane(Vector3.down, Vector3.zero);
 			Invalidate();
 		}
 
@@ -25,25 +25,27 @@ namespace FlexiCamera.Raycasters
 		public void Invalidate()
 		{
 			Ray ray = _targetCamera.ScreenPointToRay((Vector3)_screenPosition);
-			_didHit = Physics.Raycast(ray, out _hitInfo, _maxRayDistance, _layerMask);
+			_didHit = _plane.Raycast(ray, out _distance);
+			_distance = Mathf.Abs(_distance);
+			HitPoint = ray.GetPoint(_distance);
+		
 		}
 		public bool DidHit {
 			get {
-				return _didHit;
+				if (!_didHit && _distance == 0f)
+				{
+					return false; // Paralell to plane
+				}
+				return true; 
 			}
 		}
 		public Vector3 HitPoint {
-			get {
-				if (!_didHit)
-					return default(Vector3);
-				return _hitInfo.point;
-			}
+			get;
+			protected set;
 		}
 		public float Distance {
 			get {
-				if (!_didHit)
-					return default(float);
-				return  _hitInfo.distance;
+				return _distance;
 			}
 		}
 		public Vector3 CastPoint {

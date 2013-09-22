@@ -46,11 +46,11 @@ namespace FlexiCamera
 			_controllers = new List<IController> () { 
 				new RotateOrbitController(this),
 				new PinchZoomController(this),
-			 	new PanController(this) ,
+			 	new PanController(this, true, 2f, 3.5f),
 				new OrbitController(this) ,
-				new BelowGroundOrbitController(this) ,
+				//new BelowGroundOrbitController(this) ,
 				new ZoomBoundsController(this),
-				new PanBoundsController(this)
+				new PanBoundsController(this, 2f)
 				//new MomentumController(this)
 
 			};
@@ -91,11 +91,14 @@ namespace FlexiCamera
 				foreach (InputMessage inputMessage in inputMessages)
 				{
 					controller.ProcessMessage(inputMessage);
+					
+					if (!inputMessage.Propogate)
+						break;
 				}
 				List<IModifier> cModifiers = controller.GetModifiers();
 				if (cModifiers.Count > 0) {
-					Debug.Log("Controller: " + controller.GetType().Name + " Modifiers: " + cModifiers.Count);
-					showDebugDivider = true;
+					//Debug.Log("Controller: " + controller.GetType().Name + " Modifiers: " + cModifiers.Count);
+					//showDebugDivider = true;
 				}
 				foreach (IModifier modifier in cModifiers) {
 					modifiers.AddLast(modifier);

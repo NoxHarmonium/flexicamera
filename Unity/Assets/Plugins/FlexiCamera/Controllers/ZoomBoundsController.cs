@@ -15,6 +15,7 @@ namespace FlexiCamera.Controllers
 		protected float _minDistance = 20f;
 		protected float _maxDistance = 100f;
 		protected float _bounceTime = 0.5f;
+		protected bool _enabled;
 
 		public ZoomBoundsController(CameraProcessor parent)
 		{
@@ -27,8 +28,7 @@ namespace FlexiCamera.Controllers
 
 		public void ProcessMessage(InputMessage message)
 		{
-			
-		
+			_enabled &= !(message.InputType == InputMessage.InputTypes.TwoFingerPinch && message.MessageType == InputMessage.MessageTypes.Update);
 		}
 		
 		public List<IModifier> GetModifiers()
@@ -36,7 +36,7 @@ namespace FlexiCamera.Controllers
 			_raycast.Invalidate();
 
 			//Debug.Log(string.Format("mag: {0}, didHit: {1}", _input.Delta.magnitude, _raycast.DidHit));
-			if (_raycast.DidHit) {
+			if (_raycast.DidHit && _enabled) {
 				Vector3 worldDelta = default(Vector3);
 				Quaternion deltaRot = default(Quaternion);
 				TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
@@ -59,7 +59,9 @@ namespace FlexiCamera.Controllers
 					deltaRot = newRot * Quaternion.Inverse(currentRot);
 					active = true;
 				}
-
+				
+				_enabled = true;
+				
 				if (!active)
 					return new List<IModifier>();
 

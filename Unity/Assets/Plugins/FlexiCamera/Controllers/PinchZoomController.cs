@@ -17,6 +17,11 @@ namespace FlexiCamera.Controllers
 		protected float _deltaClamp = 20f;
 		protected Vector3 _worldDelta;
 		
+		protected bool _limited = false;
+		protected float _minHeight = 8f;
+		protected float _maxHeight = 58f;
+		protected float _tolerance = 2f;
+		
 		protected Vector3 _deltaPos;
 		protected bool _pendingUpdate;
 
@@ -26,6 +31,17 @@ namespace FlexiCamera.Controllers
 			this._targetCamera = parent.TargetCamera;
 			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero);
 		}
+		
+		public PinchZoomController(CameraProcessor parent, bool limited, float minHeight, float maxHeight, float tolerance)
+		{
+			this._targetCamera = parent.TargetCamera;
+			this._raycast = new RaycastScreenPointFromCamera(parent.TargetCamera, Vector2.zero);
+			this._limited = limited;
+			this._minHeight = minHeight;
+			this._maxHeight = maxHeight;
+			this._tolerance = tolerance;
+		}
+
 
 		#region IController implementation
 
@@ -45,6 +61,29 @@ namespace FlexiCamera.Controllers
 
 					TransformClone t = TransformClone.FromTransform(_targetCamera.transform);
 					_worldDelta = (_raycast.HitPoint - t.Position).normalized * Mathf.Clamp(message.GestureData[0], -_deltaClamp, _deltaClamp) * _zoomFactor;
+				}
+				
+				float distance = Vector3.Distance(_targetCamera.transform.position, _raycast.HitPoint);
+				if (_limited && ( distance < _minHeight || distance > _maxHeight)) {
+					float overshoot;
+					float a;
+					if (distance < _minHeight)
+					{
+						overshoot = _minHeight - distance;
+						 a = Vector3.Angle(_worldDelta.normalized, -_targetCamera.transform.forward);
+					}
+					else
+					{
+						overshoot = distance - _maxHeight;		
+						 a = Vector3.Angle(_worldDelta.normalized, _targetCamera.transform.forward);		
+					}
+					
+					float factor = 1f - Mathf.Clamp((overshoot / _tolerance), 0f, 1f);
+					
+					if (a > 90f)
+						_worldDelta *= factor;	
+							
+						
 				}
 
 				if (_worldDelta.magnitude > 0.01f) {

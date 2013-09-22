@@ -45,7 +45,7 @@ namespace FlexiCamera
 
 			_controllers = new List<IController> () { 
 				new RotateOrbitController(this),
-				new PinchZoomController(this),
+				new PinchZoomController(this, true, 8f, 52f, 2f),
 			 	new PanController(this, true, 2f, 3.5f),
 				new OrbitController(this) ,
 				//new BelowGroundOrbitController(this) ,

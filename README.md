@@ -7,15 +7,15 @@ Currently under development, this camera plugin for Unity3D aims to be multipurp
 
 Currently Implimented Controllers
 ---------------------------------
--Flyover (pan)
--Zoom
--Orbit
--Pan Into Bounds
--Zoom Into Bounds
+- Flyover (pan)
+- Zoom
+- Orbit
+- Pan Into Bounds
+- Zoom Into Bounds
 
 Currently Implimented Input Adapters
 ------------------------------------
--FingerGestures v3
+- FingerGestures v3
 
 Usage
 -----

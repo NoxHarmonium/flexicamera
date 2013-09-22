@@ -93,6 +93,23 @@ namespace FlexiCamera.InputAdapters
 			protected set;
 		}
 		
+		/// <summary>
+		/// Gets whether the message should propogate to the next controller in the list
+		/// </summary>
+		public bool Propogate {
+			get;
+			protected set;
+		
+		}
+		
+		/// <summary>
+		/// Gets the amount of times that controller was activated by this message
+		/// </summary>
+		public int UseCount {
+			get; 
+			protected set;
+		}
+		
 		#endregion
 		
 		#region Constuctors
@@ -108,6 +125,7 @@ namespace FlexiCamera.InputAdapters
 			this.FingerPositions = fingerPositions;
 			this.FingerDeltas = fingerDeltas;
 			this.GestureData = gestureData;
+			this.Propogate = true;
 			GenerateNormalisedLists();
 		
 		}
@@ -123,6 +141,7 @@ namespace FlexiCamera.InputAdapters
 			this.FingerPositions = new List<Vector2>() { fingerPosition };
 			this.FingerDeltas = new List<Vector2>() { fingerDelta };
 			this.GestureData = new List<float>() { gestureData };
+			this.Propogate = true;
 			GenerateNormalisedLists();
 		}
 		
@@ -144,6 +163,21 @@ namespace FlexiCamera.InputAdapters
 			{
 				NormalisedFingerPositions.Add(new Vector2(p.x / Screen.width, p.y / Screen.width));
 			}
+		}
+		
+		#endregion
+		
+		#region Public Methods
+		
+		public void StopPropagation()
+		{
+			this.Propogate = false;
+		}
+		
+		public void Use()
+		{
+		
+		
 		}
 		
 		#endregion

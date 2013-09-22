@@ -49,7 +49,8 @@ namespace FlexiCamera.Controllers
 			if (message.InputType != InputMessage.InputTypes.OneFingerDrag) {
 				return;
 			}
-			if (message.MessageType == InputMessage.MessageTypes.Update) {	
+			if (message.MessageType == InputMessage.MessageTypes.Update || 
+				message.MessageType == InputMessage.MessageTypes.Begin) {	
 			
 				_raycast.Invalidate();
 
@@ -66,17 +67,27 @@ namespace FlexiCamera.Controllers
 					
 					
 					float distance = Vector3.Distance(_center, _raycast.HitPoint);
-					if (_limited && distance > _limitStart)
-					{
+					if (_limited && distance > _limitStart) {
 						float overshoot = (distance - _limitStart);
 						
-						
 						float factor = 1f - Mathf.Clamp((overshoot / _limitEnd), 0f, 1f);
-						Debug.Log(factor);
-						_worldDelta *= factor;				
+						
+						float a = Vector3.Angle(_worldDelta.normalized, -_raycast.HitPoint.normalized);
+						
+						if (a > 90f)
+							_worldDelta *= factor;	
+							
+						
 					}
+					
+					_deltaPos = _worldDelta;
+					_pendingUpdate = true;		
+					
+					message.Use();	
 
 				}
+				
+			} else {
 				if (_worldDelta.magnitude > _startThreshold) {
 
 					Vector3 mod = _worldDelta;
@@ -84,11 +95,9 @@ namespace FlexiCamera.Controllers
 					_deltaPos = mod;
 					_pendingUpdate = true;
 					
-					message.Use();
 					return;
 				}
 			}
-			
 		}
 		
 		public List<IModifier> GetModifiers()

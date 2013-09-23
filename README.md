@@ -21,4 +21,8 @@ Usage
 -----
 If you're developing on OSX, I recommend checking out the repository into a seperate folder and adding a symlink in your Unity project's plugins folder to the relivant folder in the repository. Otherwise you can just copy the 'Assets/Plugins/FlexiCamera' folder into your plugins directory.
 
+Architecture
+------------
+Input messages are generated every update which are sent to the camera Controllers. The controllers process the input and then optinally return modifiers. The modifiers are applied to the camera transform one after then other in a pipeline. The controllers perform processing independant of each other and therefore can be run in parallel. If there dependencies that can't be avoided, multiple passes can be used. 
+
 

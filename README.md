@@ -3,7 +3,7 @@ flexicamera
 
 A flexible camera system for Unity3D
 
-Currently under development, this camera plugin for Unity3D aims to be multipurpose camera that makes it easy to combine several different camera influences gracefully to enable things like tweening of the camera. At the moment it isn't actually very flexible as I'm developing it with a work project in mind, but I aim to expand the functionality in my free time.
+This camera plugin for Unity3D aims to be multipurpose camera that makes it easy to combine several different camera influences gracefully to enable things like tweening of the camera. At the moment it isn't actually very flexible as I'm developing it with a work project in mind, but I aim to expand the functionality in my free time.
 
 Currently Implimented Controllers
 ---------------------------------
@@ -23,6 +23,6 @@ If you're developing on OSX, I recommend checking out the repository into a sepe
 
 Architecture
 ------------
-Input messages are generated every update which are sent to the camera Controllers. The controllers process the input and then optinally return modifiers. The modifiers are applied to the camera transform one after then other in a pipeline. The controllers perform processing independant of each other and therefore can be run in parallel. If there dependencies that can't be avoided, multiple passes can be used. 
+Input messages are generated every update which are sent to the camera controllers. The controllers process the input and then optionally return modifiers. The modifiers are applied to the camera transform one after then other in a pipeline. The controllers perform processing independant of each other and therefore can be run in parallel. If there dependencies that can't be avoided, multiple passes can be used. 
 
 
